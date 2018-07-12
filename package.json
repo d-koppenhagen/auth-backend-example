@@ -1,0 +1,28 @@
+{
+  "name": "auth-backend-example",
+  "version": "1.0.0",
+  "description": "An example backend serving REST-API secured by JSON web token",
+  "main": "bin/server",
+  "scripts": {
+    "start": "node bin/server"
+  },
+  "keywords": [
+    "JWT",
+    "REST",
+    "Authorization",
+    "API"
+  ],
+  "authors": [
+    "Danny Koppenhagen <mail@d-koppenhagen.de> (https://d-koppenhagen.de)"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
+    "fs": "^0.0.1-security",
+    "jwt-simple": "^0.5.1",
+    "morgan": "^1.9.0",
+    "touch": "^3.1.0",
+    "winston": "^2.4.2"
+  }
+}
