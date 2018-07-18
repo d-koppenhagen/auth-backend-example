@@ -7,8 +7,8 @@ The repository [ng-auth-ngrx](https://github.com/d-koppenhagen/ng-auth-ngrx) con
 1) Install [Node.js with NPM](https://nodejs.org/) at your system.
 2) Navigate via console into the root folder of this project and run thw following command to install dependent modules:
 `npm install`
-3) Copy the file `config.example.js` to `config.js` and adjust the port and database parameter. 
-4) Run the server: `npm start`
+3) Adjust the environemnt parameters by copyinf the file `.env.example` to `.env` change the parameters to fit into your environment.
+4) Run the server: `npm start`. The environment parmater `SECRET` is used for encoding and decoding of the jwt token.
 
 # Hints
 This backend is used as a blueprint and it is designed as follows:
