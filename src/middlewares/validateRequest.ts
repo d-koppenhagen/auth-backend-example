@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import * as jwt from 'jwt-simple';
+import { decode } from 'jwt-simple';
 
 import { logger } from '../utils/logger';
 import { AuthController } from '../controllers/auth.controller';
@@ -21,7 +21,7 @@ export const validateRequest = (req: Request, res: Response, next: NextFunction)
 
   if (token && key) {
     try {
-      const decoded = jwt.decode(token, process.env.SECRET);
+      const decoded = decode(token, process.env.SECRET);
 
       if (decoded.exp <= Date.now()) {
         res.status(400);

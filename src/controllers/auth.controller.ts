@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import * as jwt from 'jwt-simple';
+import { encode } from 'jwt-simple';
 
 import { logger, formatJSON } from '../utils/logger';
 import { User } from '../models/user';
@@ -62,7 +62,7 @@ export class AuthController {
   // generate a token based on the user information and the secret provided in the config file
   private _genToken(user: User) {
     var expires = this._expiresIn(7); // 7 days
-    var token = jwt.encode({
+    var token = encode({
       exp: expires
     }, process.env.SECRET);
 

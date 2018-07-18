@@ -1,6 +1,6 @@
 import * as express from 'express';
 import * as morgan from 'morgan';
-import * as bodyParser from 'body-parser';
+import { json, urlencoded } from 'body-parser';
 
 import { logger, stream } from './utils/logger';
 import { router } from './routes';
@@ -27,8 +27,8 @@ export class Server {
     // enable loging and logrotate
     this.app.use(morgan('combined', { stream: stream }));
 
-    this.app.use(bodyParser.json());         // to support JSON-encoded bodies
-    this.app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
+    this.app.use(json());         // to support JSON-encoded bodies
+    this.app.use(urlencoded({     // to support URL-encoded bodies
       extended: true
     }));
     this.app.all('/*', (req, res, next) => {
