@@ -1,6 +1,8 @@
-import * as winston from 'winston';
-require('winston-syslog').Syslog;
-import * as util from 'util';
+import { Logger, transports, config } from 'winston';
+import { Syslog } from 'winston-syslog';
+import { inspect } from 'util';
+
+new Syslog();
 
 const defaultOptions = {
   level: 'debug',
@@ -10,12 +12,12 @@ const defaultOptions = {
   colorize: true
 }
 
-export const logger = new winston.Logger({
+export const logger = new Logger({
   transports: [
-    new winston.transports.Syslog(defaultOptions),
-    new winston.transports.Console(defaultOptions)
+    new transports.Syslog(defaultOptions),
+    new transports.Console(defaultOptions)
   ],
-  levels: winston.config.syslog.levels,
+  levels: config.syslog.levels,
   exitOnError: false
 });
 
@@ -37,5 +39,5 @@ export const stream = {
 };
 
 export let formatJSON = (obj: {}) => {
-  return util.inspect(obj, { depth: null, colors: true });
+  return inspect(obj, { depth: null, colors: true });
 }
