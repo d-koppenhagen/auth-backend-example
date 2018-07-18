@@ -1,10 +1,12 @@
-const jwt = require('jwt-simple');
+import { Request, Response, NextFunction } from 'express';
+import * as jwt from 'jwt-simple';
 
-const logger = require('../utils/logger');
-const validateUser = require('../controllers/auth.controller').validateUser;
-const config = require('../../config.js');
+import { logger } from '../utils/logger';
+import { AuthController } from '../controllers/auth.controller';
 
-module.exports = (req, res, next) => {
+const auth = new AuthController();
+
+export const validateRequest = (req: Request, res: Response, next: NextFunction) => {
   // When performing a cross domain request, you will recieve
   // a preflighted request first. This is to check if our the app
   // is safe.
@@ -19,7 +21,7 @@ module.exports = (req, res, next) => {
 
   if (token && key) {
     try {
-      const decoded = jwt.decode(token, config.secret);
+      const decoded = jwt.decode(token, process.env.SECRET);
 
       if (decoded.exp <= Date.now()) {
         res.status(400);
@@ -32,7 +34,7 @@ module.exports = (req, res, next) => {
 
       // Authorize the user to see if s/he can access our resources
       // TODO: implement user permission roles (admin, user, etc.)
-      validateUser(key, (user) => {
+      auth.validateUser(key, (user) => {
         logger.info('validateRequest | key: ' + key);
         logger.info('validateRequest | user: ' + user);
         if (user) {

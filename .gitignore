@@ -42,7 +42,7 @@ testem.log
 Thumbs.db
 
 # Config files
-config.js
+.env
 
 # Log directory
 /log/*
