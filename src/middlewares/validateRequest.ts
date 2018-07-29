@@ -3,6 +3,7 @@ import { decode } from 'jwt-simple';
 
 import { logger } from '../utils/logger';
 import { AuthController } from '../controllers/auth.controller';
+import { Server } from '../server';
 
 const auth = new AuthController();
 
@@ -35,10 +36,9 @@ export const validateRequest = (req: Request, res: Response, next: NextFunction)
       // Authorize the user to see if s/he can access our resources
       // TODO: implement user permission roles (admin, user, etc.)
       auth.validateUser(key, (user) => {
-        logger.info('validateRequest | key: ' + key);
-        logger.info('validateRequest | user: ' + user);
+        logger.info(`validateRequest | key: ${key}, user: ${user}`);
         if (user) {
-          if ((req.url.indexOf('admin') >= 0 && user.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf('/api/v1/') >= 0)) {
+          if ((req.url.indexOf('admin') >= 0 && user.role == 'admin') || (req.url.indexOf('admin') < 0 && req.url.indexOf(Server.API_BASE_PATH) >= 0)) {
             next(); // To move to next middleware
           } else {
             res.status(403);

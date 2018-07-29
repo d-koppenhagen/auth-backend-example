@@ -24,7 +24,6 @@ export const logger = new Logger({
 export const stream = {
   write: (message: any) => {
     message = `HTTP | ${message}`;
-    console.log(message);
     // check for HTTP Response code to colorize output on console
     if (message.match(/HTTP\/\d\.\d\" 4\d{2}/g)) {
       logger.notice(message)

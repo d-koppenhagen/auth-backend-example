@@ -7,7 +7,6 @@ export class ExampleController {
   constructor() {}
 
   getData(req: Request, res: Response, next: NextFunction) {
-    logger.info('exampleController | received GET');
     res.json({
       key1: this._generateExampleData(),
       key2: this._generateExampleData(),
