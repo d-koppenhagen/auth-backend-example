@@ -1,8 +1,7 @@
-import { Logger, transports, config } from 'winston';
-import { Syslog } from 'winston-syslog';
+import { createLogger, transports, config } from 'winston';
 import { inspect } from 'util';
-
-new Syslog();
+const winston = require('winston');
+require('winston-syslog').Syslog;
 
 const defaultOptions = {
   level: 'debug',
@@ -12,9 +11,9 @@ const defaultOptions = {
   colorize: true
 }
 
-export const logger = new Logger({
+export const logger = createLogger({
   transports: [
-    new transports.Syslog(defaultOptions),
+    new winston.transports.Syslog(defaultOptions),
     new transports.Console(defaultOptions)
   ],
   levels: config.syslog.levels,
